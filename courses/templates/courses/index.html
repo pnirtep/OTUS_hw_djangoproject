@@ -1,0 +1,20 @@
+{% extends 'courses/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    {% for course in courses %}
+
+        <h1><a href="{% url 'course_detail' pk=course.pk %}">{{ course.title }}</a></h1>
+        <p>{{ course.description }}</p>
+        <p><b>Дата старта курса</b>: {{ course.start_date }}</p>
+        <p><b>Стоимость</b>: {{ course.price }}</p>
+        <p><b>Количество уроков на курсе</b>: {{ course.lesson_quantity }}</p>
+        <button><a href="{% url 'course_detail' pk=course.pk %}">Подробнее</a></button>
+
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}
