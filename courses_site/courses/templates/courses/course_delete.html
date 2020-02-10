@@ -1,0 +1,14 @@
+{% extends 'courses/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+
+        <form class="" method="post">
+              {% csrf_token %}
+              Вы действительно хотите сделать это??
+              <input type="submit" name="" value="submit">
+        </form>
+
+</div>
+{% endblock %}
