@@ -15,8 +15,8 @@ def course_new(request):
     if request.method == "POST":
         form = CourseForm(request.POST)
         if form.is_valid():
-            course = form.save(commit=False)
-            course.save()
+            course = form.save()
+
             return redirect('course_detail', pk=course.pk)
     else:
         form = CourseForm()
@@ -27,8 +27,8 @@ def course_edit(request, pk):
     if request.method == "POST":
         form = CourseForm(request.POST, instance=course)
         if form.is_valid():
-            course = form.save(commit=False)
-            course.save()
+            course = form.save()
+
             return redirect('course_detail', pk=course.pk)
     else:
         form = CourseForm(instance=course)
@@ -37,7 +37,7 @@ def course_edit(request, pk):
 def course_delete(request, pk):
     course = get_object_or_404(Course, pk=pk)
     if request.method == 'POST':
-        course.published=False
+        course.published = False
         course.save()
         return redirect('courses')
     context = {"course": course}

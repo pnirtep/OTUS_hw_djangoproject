@@ -16,7 +16,7 @@
         </p>
 
         <p><b>Уроки на курсе:</b>
-                {% for lesson in course.lesson_set.all  %}
+                {% for lesson in course.lessons.all  %}
                 <p>{{ lesson.title }}</p>
                 {% endfor %}
         </p>
