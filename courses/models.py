@@ -1,5 +1,6 @@
 from datetime import date
 
+from django.contrib.auth.models import User
 from django.db import models
 
 
@@ -43,6 +44,7 @@ class Lesson(models.Model):
 
 
 class Student(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField('Имя', max_length=50)
     last_name = models.CharField('Фамилия', max_length=50)
     accessed_courses = models.ManyToManyField(Course)
@@ -55,8 +57,8 @@ class Student(models.Model):
         return f'{self.full_name}'
 
     class Meta:
-        verbose_name_plural = 'Пользователи'
-        verbose_name = 'Пользователь'
+        verbose_name_plural = 'Студенты'
+        verbose_name = 'Студент'
         ordering = ['last_name']
 
 
