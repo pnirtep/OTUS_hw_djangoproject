@@ -1,11 +1,12 @@
 from datetime import date
 
+from django.contrib.auth.models import User
 from django.db import models
 
 
 class Course(models.Model):
     title = models.CharField('Название курса', max_length=200)
-    description = models.TextField('Описание курса', blank=True)
+    description = models.TextField('Описание курса')
     length = models.IntegerField('Длительность, мес', default=0)
     lesson_quantity = models.IntegerField('Количество уроков', default=0)
     course_program = models.TextField('Программа курса', blank=True)
@@ -28,7 +29,7 @@ class Lesson(models.Model):
     title = models.CharField('Название урока', max_length=200)
     description = models.TextField('Описание урока', blank=True)
     start_date = models.DateTimeField('Дата проведения', auto_now=False, auto_now_add=False)
-    duration = models.IntegerField('Длительность, мин', default='0')
+    duration = models.IntegerField('Длительность, мин', default=0)
     homework = models.TextField('Домашнее задание к уроку', blank=True)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name = 'lessons')
     lesson_teacher = models.ManyToManyField('Teacher', blank=True)
@@ -43,6 +44,7 @@ class Lesson(models.Model):
 
 
 class Student(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField('Имя', max_length=50)
     last_name = models.CharField('Фамилия', max_length=50)
     accessed_courses = models.ManyToManyField(Course)
@@ -55,8 +57,8 @@ class Student(models.Model):
         return f'{self.full_name}'
 
     class Meta:
-        verbose_name_plural = 'Пользователи'
-        verbose_name = 'Пользователь'
+        verbose_name_plural = 'Студенты'
+        verbose_name = 'Студент'
         ordering = ['last_name']
 
 

@@ -20,6 +20,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'courses.apps.CoursesConfig',
+    'contacts.apps.ContactsConfig',
+    'django_rq'
 ]
 
 MIDDLEWARE = [
@@ -97,3 +99,19 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+RQ_QUEUES = {
+    'default': {
+        'HOST':'localhost',
+        'PORT': 6379,
+        'DB': 0
+    }
+}
+
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'pnirtep@gmail.com'
+EMAIL_HOST_PASSWORD = '123321Aa'
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
