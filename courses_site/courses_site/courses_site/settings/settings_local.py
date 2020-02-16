@@ -21,7 +21,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'courses.apps.CoursesConfig',
     'contacts.apps.ContactsConfig',
+<<<<<<< HEAD:courses_site/courses_site/settings/settings_local.py
     'django_rq'
+=======
+    'courses_api.apps.CoursesApiConfig',
+    'django_rq',
+    'rest_framework',
+>>>>>>> courses api add:courses_site/settings/settings_local.py
 ]
 
 MIDDLEWARE = [
