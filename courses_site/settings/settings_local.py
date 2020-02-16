@@ -20,6 +20,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'courses.apps.CoursesConfig',
+    'contacts.apps.ContactsConfig',
+    'courses_api.apps.CoursesApiConfig',
+    'django_rq',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -97,3 +101,19 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+RQ_QUEUES = {
+    'default': {
+        'HOST':'localhost',
+        'PORT': 6379,
+        'DB': 0
+    }
+}
+
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'EMAIL_HOST_USER'
+EMAIL_HOST_PASSWORD = 'EMAIL_HOST_PASSWORD'
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
