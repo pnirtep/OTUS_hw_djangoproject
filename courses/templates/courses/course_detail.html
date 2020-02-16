@@ -1,0 +1,28 @@
+{% extends 'courses/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+
+        <h3>{{ course.title }}</h3>
+        <p><b>О чем этот курс:</b> {{ course.description }}</p>
+        <p><b>Стоимость курса:</b> {{ course.price }}</p>
+        <p><b>Подробная программа:</b> {{ course.course_program }}</p>
+        <p><b>Кто преподает:</b>
+                {% for teacher in course.course_teacher.all  %}
+                <p>{{ teacher.full_name }}</p>
+                <p>{{ teacher.biography }}</p>
+                {% endfor %}
+        </p>
+
+        <p><b>Уроки на курсе:</b>
+                {% for lesson in course.lessons.all  %}
+                <p>{{ lesson.title }}</p>
+                {% endfor %}
+        </p>
+        {% if user.is_authenticated %}
+                <a class="btn btn-default" href="{% url 'course_edit' pk=course.pk %}"><span>Редактировать</span></a>
+                <a class="btn btn-default" href="{% url 'course_delete' pk=course.pk %}"><span>Удалить курс</span></a>
+        {% endif %}
+</div>
+{% endblock %}
