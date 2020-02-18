@@ -1,0 +1,15 @@
+{% extends 'root.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container main">
+    <div class ="col-lg-4">
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {{ error }}
+        <input type="submit" value="Вход на сайт" />
+    </form>
+    </div>
+</div>
+{% endblock %}

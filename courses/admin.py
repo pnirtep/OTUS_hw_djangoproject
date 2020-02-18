@@ -17,7 +17,7 @@ class CourseAdmin(admin.ModelAdmin):
     search_fields = ('title', 'description')
 
 class StudentAdmin(admin.ModelAdmin):
-    list_display = ('bio', 'location')
+    list_display = ('pk','bio', 'location')
 
 
 
