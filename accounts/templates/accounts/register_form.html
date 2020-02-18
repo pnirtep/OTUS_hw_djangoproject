@@ -5,8 +5,9 @@
 <div class="container main">
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Отправить" />
+        {{ user_form.as_p }}
+        {{ student_form.as_p }}
+        <input type="submit" value="Регистрация" />
     </form>
 </div>
 {% endblock %}

@@ -1,4 +1,4 @@
-{% extends 'root.html' %}
+{% extends 'courses/base.html' %}
 {% load static %}
 
 {% block content %}
@@ -6,7 +6,7 @@
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="Отправить" />
+        <input type="submit" value="Сохранить" />
     </form>
 </div>
 {% endblock %}

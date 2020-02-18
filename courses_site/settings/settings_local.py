@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     'courses.apps.CoursesConfig',
     'contacts.apps.ContactsConfig',
     'courses_api.apps.CoursesApiConfig',
+    'accounts.apps.AccountsConfig',
     'django_rq',
     'rest_framework',
 ]

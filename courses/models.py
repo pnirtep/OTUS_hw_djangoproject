@@ -2,6 +2,8 @@ from datetime import date
 
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class Course(models.Model):
@@ -45,21 +47,24 @@ class Lesson(models.Model):
 
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    first_name = models.CharField('Имя', max_length=50)
-    last_name = models.CharField('Фамилия', max_length=50)
-    accessed_courses = models.ManyToManyField(Course)
+    bio = models.TextField(max_length=500, blank=True)
+    location = models.CharField(max_length=30, blank=True)
+    accessed_courses = models.ManyToManyField(Course, blank=True)
 
-    @property
-    def full_name(self):
-        return f'{self.first_name} {self.last_name}'
+    @receiver(post_save, sender=User)
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Student.objects.create(user=instance)
 
-    def __str__(self):
-        return f'{self.full_name}'
+    @receiver(post_save, sender=User)
+    def save_user_profile(sender, instance, **kwargs):
+        instance.student.save()
+
 
     class Meta:
         verbose_name_plural = 'Студенты'
         verbose_name = 'Студент'
-        ordering = ['last_name']
+        ordering = ['id']
 
 
 class Teacher(models.Model):

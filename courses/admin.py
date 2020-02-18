@@ -16,7 +16,12 @@ class CourseAdmin(admin.ModelAdmin):
     list_display_links = ('title',)
     search_fields = ('title', 'description')
 
+class StudentAdmin(admin.ModelAdmin):
+    list_display = ('bio', 'location')
+
+
+
 admin.site.register(Course, CourseAdmin)
 admin.site.register(Lesson)
-admin.site.register(Student)
+admin.site.register(Student, StudentAdmin)
 admin.site.register(Teacher)
