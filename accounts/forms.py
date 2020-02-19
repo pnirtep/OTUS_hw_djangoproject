@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from courses.models import Student
 
 
-class SignUpForm(UserCreationForm):
+class SignUpForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
@@ -14,6 +14,8 @@ class SignUpForm(UserCreationForm):
         model = User
         fields = [
             'username',
+            'password',
+
                         ]
 
 class StudentProfileForm(forms.ModelForm):
