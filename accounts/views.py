@@ -1,7 +1,5 @@
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
-from django.views.generic import CreateView
-from django.views.generic.base import View
 from django.contrib.auth import authenticate, login, logout
 from accounts.forms import LoginForm, SignUpForm
 
@@ -49,4 +47,4 @@ def register_user(request):
         login(request, user)
         return redirect('courses')
 
-    return render(request, 'accounts/register_form.html', {'form':form})
+    return render(request, 'accounts/register_form.html', {'form': form})
