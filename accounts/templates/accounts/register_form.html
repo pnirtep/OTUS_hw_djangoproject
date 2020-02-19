@@ -2,25 +2,11 @@
 {% load static %}
 
 {% block content %}
-<!--<div class="container main">-->
-<!--    <form method="post">-->
-<!--        {% csrf_token %}-->
-<!--        {{ user_form.as_p }}-->
-<!--        {{ student_form.as_p }}-->
-<!--        <input type="submit" value="Регистрация" />-->
-<!--    </form>-->
-<!--</div>-->
-
 <div class="container main">
-    <form method="post" class = "form-group">
-        <ul>{% csrf_token %}
-        <li><input type="text" name="username">Username</li>
-        <li><input type="password" name="password">Pass</li>
-        <li><input type="email" name="email">email</li>
-        <li><textarea name="bio"></textarea>О себе</li>
-        <li><input type="text" name="location">Из какого города</li>
-        <input type="submit" value="Регистрация" />
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+         <input type="submit" value="Регистрация" />
     </form>
 </div>
-
 {% endblock %}
