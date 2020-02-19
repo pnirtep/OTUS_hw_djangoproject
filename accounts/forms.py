@@ -10,11 +10,11 @@ class BaseForm(forms.Form):
 
 
 class SignUpForm(BaseForm):
-    username = forms.CharField(widget=forms.TextInput)
-    password = forms.CharField(widget=forms.PasswordInput)
-    email = forms.CharField(widget=forms.TextInput)
-    bio = forms.CharField(widget=forms.Textarea)
-    location = forms.CharField(widget=forms.TextInput)
+    username = forms.CharField(widget=forms.TextInput, label= 'Имя пользователя')
+    password = forms.CharField(widget=forms.PasswordInput, label= 'Пароль')
+    email = forms.CharField(widget=forms.TextInput, label= 'Email')
+    bio = forms.CharField(widget=forms.Textarea, label= 'О себе')
+    location = forms.CharField(widget=forms.TextInput, label= 'Ваш город')
 
 
 class LoginForm(AuthenticationForm, BaseForm):
