@@ -31,4 +31,4 @@ class StudentSerializer(serializers.HyperlinkedModelSerializer):
     user = UserSerializer(read_only=True)
     class Meta:
         model = Student
-        fields = 'user', 'bio', 'location'
+        fields = 'user', 'bio', 'location', 'accessed_courses'
