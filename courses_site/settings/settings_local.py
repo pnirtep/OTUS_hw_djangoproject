@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'django_rq',
     'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -118,3 +119,14 @@ EMAIL_HOST_USER = 'EMAIL_HOST_USER'
 EMAIL_HOST_PASSWORD = 'EMAIL_HOST_PASSWORD'
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.IsAdminUser',
+    )
+}
