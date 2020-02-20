@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.models import User
 
 
 class BaseForm(forms.Form):
@@ -18,4 +19,6 @@ class SignUpForm(BaseForm):
 
 
 class LoginForm(AuthenticationForm, BaseForm):
-    pass
+    class Meta:
+        model = User
+        fields = ('username', 'password')

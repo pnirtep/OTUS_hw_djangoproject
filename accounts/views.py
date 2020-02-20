@@ -1,28 +1,18 @@
 from django.contrib.auth.models import User
+from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
+from django.urls import reverse_lazy
+
 from accounts.forms import LoginForm, SignUpForm
 
 
-def login_view(request):
-    if request.method == 'GET':
-        form = LoginForm
-        return render(request, 'accounts/login.html', {'form': form})
-    else:
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('courses')
-        else:
-            form = LoginForm
-            error = 'Неверные данные пользователя'
-            context = {
-                'error': error,
-                'form': form,
-            }
-            return render(request, 'accounts/login.html', context=context)
+class UserLoginView(LoginView):
+    template_name = 'accounts/login.html'
+    form_class = LoginForm
+    success_url = reverse_lazy('courses')
+    def get_success_url(self):
+        return self.success_url
 
 
 def logout_view(request):
