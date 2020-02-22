@@ -137,7 +137,8 @@ class TestCaseForStudent(APITestCase):
         """
         Создаем тестового студента, через обращение к модели User, от которой через O2O наследуется модель Student
         """
-        response = self.client.post("/api/users/", data={'username': 'benbenben', 'password': '123', 'user.student.bio':'Testbio'})
+        response = self.client.post("/api/users/", data={'username': 'benbenben', 'password': '123',
+                                                         'user.student.bio':'Testbio', 'user.student.location':'Test location'})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
 
