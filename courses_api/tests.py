@@ -13,7 +13,7 @@ from rest_framework.test import APIRequestFactory
 
 from courses_api.factories import CourseFactory, LessonFactory
 from courses_api.views import CoursesApiListView
-from courses.models import Lesson
+from courses.models import Lesson, Teacher
 
 '''
 Тесты Courses/ endpoint через RequestFactory
@@ -121,7 +121,7 @@ class TestCaseForLesson(APITestCase):
             self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
 
-class TestCaseForStudent(APITestCase):
+class TestCaseForUsers(APITestCase):
     def setUp(self):
         """
         Задаем первоначальные параметры авторизованного пользователя для TokenAuth
@@ -137,9 +137,12 @@ class TestCaseForStudent(APITestCase):
         """
         Создаем тестового студента, через обращение к модели User, от которой через O2O наследуется модель Student
         """
+        before_list_amount = User.objects.count()
         response = self.client.post("/api/users/", data={'username': 'benbenben', 'password': '123',
                                                          'user.student.bio':'Testbio', 'user.student.location':'Test location'})
+        after_list_amount = User.objects.count()
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(before_list_amount, after_list_amount - 1)
 
 
 
