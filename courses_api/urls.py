@@ -6,7 +6,7 @@ from .views import CoursesApiListView, TeacherApiListView, LessonApiListView, St
 
 router = DefaultRouter()
 router.register('courses', CoursesApiListView)
-router.register('teacher', TeacherApiListView)
+router.register('teachers', TeacherApiListView)
 router.register('lessons', LessonApiListView)
 router.register('users', UserApiListView)
 router.register('students', StudentApiListView)

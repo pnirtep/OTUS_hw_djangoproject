@@ -1,9 +1,12 @@
 from datetime import date
 
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AbstractUser
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+
+
+
 
 
 class Course(models.Model):
@@ -17,7 +20,6 @@ class Course(models.Model):
     course_teacher = models.ManyToManyField('Teacher', blank=True, verbose_name="Преподаватели курса")
     published = models.BooleanField('Опубликован', default=True)
 
-
     def __str__(self):
         return self.title
 
@@ -30,10 +32,10 @@ class Course(models.Model):
 class Lesson(models.Model):
     title = models.CharField('Название урока', max_length=200)
     description = models.TextField('Описание урока', blank=True)
-    start_date = models.DateTimeField('Дата проведения', auto_now=False, auto_now_add=False)
+    start_date = models.DateTimeField('Дата проведения', auto_now=False, auto_now_add=True)
     duration = models.IntegerField('Длительность, мин', default=0)
     homework = models.TextField('Домашнее задание к уроку', blank=True)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name = 'lessons')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='lessons', blank=True)
     lesson_teacher = models.ManyToManyField('Teacher', blank=True)
 
     def __str__(self):
@@ -46,7 +48,7 @@ class Lesson(models.Model):
 
 
 class Student(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Имя пользователя")
     bio = models.TextField(max_length=500, blank=True)
     location = models.CharField(max_length=30, blank=True)
     accessed_courses = models.ManyToManyField(Course, blank=True)
@@ -60,7 +62,6 @@ class Student(models.Model):
     def save_user_profile(sender, instance, **kwargs):
         instance.student.save()
 
-
     class Meta:
         verbose_name_plural = 'Студенты'
         verbose_name = 'Студент'
@@ -73,6 +74,7 @@ class Teacher(models.Model):
     biography = models.TextField('Биография', blank=True)
     teacher_courses = models.ManyToManyField(Course)
 
+
     @property
     def full_name(self):
         return f'{self.first_name} {self.last_name}'
@@ -84,3 +86,6 @@ class Teacher(models.Model):
         verbose_name_plural = 'Преподаватели'
         verbose_name = 'Преподаватель'
         ordering = ['last_name']
+
+
+

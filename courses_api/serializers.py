@@ -10,7 +10,7 @@ class TeacherSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Teacher
-        fields = 'url', 'id', 'first_name', 'teacher_courses',
+        fields = 'url', 'id', 'first_name','last_name', 'teacher_courses',
 
 
 class CourseSerializer(serializers.HyperlinkedModelSerializer):

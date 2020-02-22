@@ -17,11 +17,18 @@ class CourseAdmin(admin.ModelAdmin):
     search_fields = ('title', 'description')
 
 class StudentAdmin(admin.ModelAdmin):
-    list_display = ('pk','bio', 'location')
+    list_display = ('user','bio', 'location')
+
+class TeacherAdmin(admin.ModelAdmin):
+    list_display = ('first_name','last_name')
+
+
+class LessonAdmin(admin.ModelAdmin):
+    list_display = ('title','description','course')
 
 
 
 admin.site.register(Course, CourseAdmin)
-admin.site.register(Lesson)
+admin.site.register(Lesson, LessonAdmin)
 admin.site.register(Student, StudentAdmin)
-admin.site.register(Teacher)
+admin.site.register(Teacher, TeacherAdmin)

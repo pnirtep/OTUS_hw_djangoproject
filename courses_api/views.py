@@ -6,21 +6,21 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-
 from courses.models import Course, Teacher, Lesson, Student
 from .serializers import CourseSerializer, TeacherSerializer, LessonSerializer, UserSerializer, StudentSerializer
 
 
 class CoursesApiListView(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)
-
     queryset = Course.objects.all().order_by('id')
     serializer_class = CourseSerializer
+
 
 class TeacherApiListView(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)
     queryset = Teacher.objects.all()
     serializer_class = TeacherSerializer
+
 
 class LessonApiListView(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)
@@ -33,9 +33,8 @@ class UserApiListView(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
+
 class StudentApiListView(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
-
-
