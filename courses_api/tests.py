@@ -121,3 +121,25 @@ class TestCaseForLesson(APITestCase):
             self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
 
+class TestCaseForStudent(APITestCase):
+    def setUp(self):
+        """
+        Задаем первоначальные параметры авторизованного пользователя для TokenAuth
+        """
+        self.user = User.objects.get(username="pnirtep")
+        self.token = Token.objects.get(user=self.user)
+        self.api_authentication()
+
+    def api_authentication(self):
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + self.token.key)
+
+    def test_student_create(self):
+        """
+        Создаем тестового студента, через обращение к модели User, от которой через O2O наследуется модель Student
+        """
+        response = self.client.post("/api/users/", data={'username': 'benbenben', 'password': '123', 'user.student.bio':'Testbio'})
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+
+
+
