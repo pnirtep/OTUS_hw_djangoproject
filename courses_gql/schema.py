@@ -1,7 +1,5 @@
 import graphene
-from graphene import relay
 from graphene_django.types import DjangoObjectType
-from graphene_django.filter import DjangoFilterConnectionField
 from courses.models import Course, Teacher, Lesson, Student
 from django.contrib.auth.models import User
 
@@ -38,6 +36,13 @@ class Query(graphene.ObjectType):
                               id=graphene.Int(),
                               title=graphene.String())
 
+    user = graphene.Field(UserType,
+                            id=graphene.Int(),
+                            username=graphene.String(),
+                            first_name=graphene.String(),
+                            last_name=graphene.String(),
+                            student=graphene.String())
+
     def resolve_all_courses(self, info, **kwargs):
         return Course.objects.all()
 
@@ -62,4 +67,23 @@ class Query(graphene.ObjectType):
 
         if title is not None:
             return Course.objects.get(title=title)
+        return None
+
+    def resolve_user(self, info, **kwargs):
+        id = kwargs.get('id')
+        username = kwargs.get('username')
+        first_name = kwargs.get('first_name')
+        last_name = kwargs.get('last_name')
+        student = kwargs.get('student')
+
+        if id is not None:
+            return User.objects.get(pk=id)
+        if username is not None:
+            return User.objects.get(username=username)
+        if first_name is not None:
+            return User.objects.get(first_name=first_name)
+        if last_name is not None:
+            return User.objects.get(last_name=last_name)
+        if student is not None:
+            return User.objects.get(student=student)
         return None
