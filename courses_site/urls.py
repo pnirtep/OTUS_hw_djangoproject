@@ -8,6 +8,6 @@ urlpatterns = [
     path('api/', include('courses_api.urls'), name='api'),
     path('accounts/', include('accounts.urls'), name='accounts'),
     path('admin/', admin.site.urls),
-
+    path('graphql/', include('courses_gql.urls'), name='graphql')
 
 ]

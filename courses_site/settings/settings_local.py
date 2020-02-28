@@ -22,10 +22,12 @@ INSTALLED_APPS = [
     'courses.apps.CoursesConfig',
     'contacts.apps.ContactsConfig',
     'courses_api.apps.CoursesApiConfig',
+    'courses_gql.apps.CoursesGqlConfig',
     'accounts.apps.AccountsConfig',
     'django_rq',
     'rest_framework',
     'rest_framework.authtoken',
+    'graphene_django',
 ]
 
 MIDDLEWARE = [
