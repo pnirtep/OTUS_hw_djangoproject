@@ -9,9 +9,9 @@ import courses_gql.schema
 
 
 class Query(courses_gql.schema.Query, graphene.ObjectType):
-    # This class will inherit from multiple Queries
-    # as we begin to add more apps to our project
     pass
+
+
 schema = graphene.Schema(query=Query)
 
 urlpatterns = [
