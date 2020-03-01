@@ -11,7 +11,6 @@ from . import schema
 
 
 class CoursesTestCase(GraphQLTestCase):
-    # Here you need to inject your test case's schema
     GRAPHQL_SCHEMA = schema
 
     def test_query(self):

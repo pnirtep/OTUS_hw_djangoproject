@@ -35,6 +35,7 @@ class CourseMutation(graphene.Mutation):
         new_title = graphene.String(required=True)
         new_description = graphene.String(required=True)
         new_price = graphene.Int(required=False)
+
     result = graphene.Boolean()
     course = graphene.Field(CourseType)
 
@@ -49,11 +50,13 @@ class CourseMutation(graphene.Mutation):
             'course': Course.objects.get(pk=course_id)
         }
 
+
 class CreateCourseMutation(graphene.Mutation):
     class Arguments:
         new_title = graphene.String(required=True)
         new_description = graphene.String(required=True)
         new_price = graphene.Int(required=False)
+
     result = graphene.Boolean()
     course = graphene.Field(CourseType)
 
@@ -65,9 +68,11 @@ class CreateCourseMutation(graphene.Mutation):
             'course': Course.objects.get(title=new_title)
         }
 
+
 class Mutation:
     change_course = CourseMutation.Field()
     new_course = CreateCourseMutation.Field()
+
 
 class Query(graphene.ObjectType):
     all_courses = graphene.List(CourseType)
