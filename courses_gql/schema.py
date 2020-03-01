@@ -8,22 +8,66 @@ class CourseType(DjangoObjectType):
     class Meta:
         model = Course
 
+
 class LessonType(DjangoObjectType):
     class Meta:
         model = Lesson
+
 
 class UserType(DjangoObjectType):
     class Meta:
         model = User
 
+
 class TeacherType(DjangoObjectType):
     class Meta:
         model = Teacher
+
 
 class StudentType(DjangoObjectType):
     class Meta:
         model = Student
 
+
+class CourseMutation(graphene.Mutation):
+    class Arguments:
+        course_id = graphene.Int(required=True)
+        new_title = graphene.String(required=True)
+        new_description = graphene.String(required=True)
+        new_price = graphene.Int(required=False)
+    result = graphene.Boolean()
+    course = graphene.Field(CourseType)
+
+    def mutate(self, info, course_id, new_title, new_description, new_price):
+        course = Course.objects.get(pk=course_id)
+        course.title = new_title
+        course.description = new_description
+        course.price = new_price
+        course.save()
+        return {
+            'result': True,
+            'course': Course.objects.get(pk=course_id)
+        }
+
+class CreateCourseMutation(graphene.Mutation):
+    class Arguments:
+        new_title = graphene.String(required=True)
+        new_description = graphene.String(required=True)
+        new_price = graphene.Int(required=False)
+    result = graphene.Boolean()
+    course = graphene.Field(CourseType)
+
+    def mutate(self, info, new_title, new_description, new_price):
+        course = Course(title=new_title, description=new_description, price=new_price)
+        course.save()
+        return {
+            'result': True,
+            'course': Course.objects.get(title=new_title)
+        }
+
+class Mutation:
+    change_course = CourseMutation.Field()
+    new_course = CreateCourseMutation.Field()
 
 class Query(graphene.ObjectType):
     all_courses = graphene.List(CourseType)
@@ -33,15 +77,15 @@ class Query(graphene.ObjectType):
     all_students = graphene.List(StudentType)
 
     course = graphene.Field(CourseType,
-                              id=graphene.Int(),
-                              title=graphene.String())
+                            id=graphene.Int(),
+                            title=graphene.String())
 
     user = graphene.Field(UserType,
-                            id=graphene.Int(),
-                            username=graphene.String(),
-                            first_name=graphene.String(),
-                            last_name=graphene.String(),
-                            student=graphene.String())
+                          id=graphene.Int(),
+                          username=graphene.String(),
+                          first_name=graphene.String(),
+                          last_name=graphene.String(),
+                          student=graphene.String())
 
     def resolve_all_courses(self, info, **kwargs):
         return Course.objects.all()
